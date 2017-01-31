@@ -1,0 +1,42 @@
+# MY ALIASES
+alias ll='ls -la'
+
+alias ..='cd ..'
+alias ...='cd ../../'
+
+alias grep='grep --color=auto'
+
+alias mkdir='mkdir -pv'
+
+alias mount='mount |column -t'
+
+alias h='history'
+alias j='jobs -l'
+
+### set vim as default
+alias vi=vim
+alias svi='sudo vi'
+alias vis='vim "+set si"'
+alias edit='vim'
+
+## SAFETY NETS
+### do not delete/prompt if deleting more than 3 files at a time
+# alias rm='rm -I --preserve-root'
+
+### confirmation
+alias mv='mv -i'
+alias cp='cp -i'
+alias ln='ln -i'
+alias rm='rm -i'
+
+### parentign changing permissions on /
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
+
+alias wget='wget -c'
+
+alias top='atop'
+
+alias df='df -H'
+alias du='du -ch'
