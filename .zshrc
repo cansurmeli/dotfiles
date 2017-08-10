@@ -10,10 +10,10 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# Source my customisations
 source ~/.command_aliases
 source ~/.directory_aliases
+source ~/.functions
 
 export PATH="$HOME/.fastlane/bin:$PATH"
+
