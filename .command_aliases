@@ -1,11 +1,19 @@
 # MY ALIASES
 alias ll='ls -la'
 
+# get rid of command not found
+alias cd..='cd ..'
+
 alias ..='cd ..'
 alias ...='cd ../../'
+alias .3='cd ../../../'
+alias .4='../../../../'
+alias .5='../../../../../'
 
 alias grep='grep --color=auto'
 
+# -p: create intermediate directories
+# -v: be verbose, listing them as they're created
 alias mkdir='mkdir -pv'
 
 alias mount='mount |column -t'
@@ -18,6 +26,11 @@ alias vi=vim
 alias svi='sudo vi'
 alias vis='vim "+set si"'
 alias edit='vim'
+
+alias path='echo -e ${PATH//:/\\n}'
+alias now='date +"%T"'
+alias nowtime=now
+alias nowdate='date +"%d-%m-%Y"'
 
 ## SAFETY NETS
 ### do not delete/prompt if deleting more than 3 files at a time
@@ -34,9 +47,13 @@ alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
+# continue from partially downloaded files
 alias wget='wget -c'
 
 alias top='atop'
 
 alias df='df -H'
 alias du='du -ch'
+
+# MISCELLANEOUS
+alias getGitIgnore='wget https://gist.githubusercontent.com/octocat/9257657/raw/3f9569e65df83a7b328b39a091f0ce9c6efc6429/.gitignore'
