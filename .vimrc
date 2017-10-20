@@ -108,6 +108,9 @@ nnoremap <leader><space> :nohlsearch<CR>		" stop search highlighting map to ,<sp
 " FOLDING
 set foldenable					" enable folding
 
+" MISC
+set backspace=2
+
 " Syntastic Recommended Settings
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
