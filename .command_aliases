@@ -1,5 +1,13 @@
 # MY ALIASES
+
+# Colorize the ls output
+#alias ls='ls --color=auto'
+# macOS does not support the `--color` option
+
+# Use a long listing format
 alias ll='ls -la'
+
+alias l.='ls -d .* --color=auto'
 
 # get rid of command not found
 alias cd..='cd ..'
@@ -10,8 +18,21 @@ alias .3='cd ../../../'
 alias .4='../../../../'
 alias .5='../../../../../'
 
+# Colorize the grep command's output for ease of use(good for log files)
 alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
 
+# Start the calculator with math support
+alias bc='bc -l'
+
+# Show open ports
+alias ports='netstat -tulanp'
+
+# Generate SHA1 Digest
+alias sha1='openssl sha1'
+
+## Create parent directories on demand
 # -p: create intermediate directories
 # -v: be verbose, listing them as they're created
 alias mkdir='mkdir -pv'
@@ -42,13 +63,23 @@ alias cp='cp -i'
 alias ln='ln -i'
 alias rm='rm -i'
 
-### parentign changing permissions on /
+alias reboot='sudo /sbin/reboot'
+alias poweroff='sudo /sbin/poweroff'
+alias halt='sudo /sbin/halt'
+alias shutdown='sudo /sbin/shutdown'
+
+### parenting changing permissions on /
 alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
 # continue from partially downloaded files
 alias wget='wget -c'
+
+alias diff='colordiff'
+
+# Shorten the waiting interval in between
+alias fastping='ping -c 100 -s.2'
 
 alias top='atop'
 
@@ -62,3 +93,4 @@ alias externalIP='dig +short myip.opendns.com @resolver1.opendns.com'
 alias forceEmptyTrash='rm -Rf ~/.Trash/*'
 alias screensaver='open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app'
 alias ss='open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app'
+alias listRemoteSSHClients='dns-sd -B _ssh._tcp'

@@ -37,7 +37,7 @@ Plug 'altercation/vim-colors-solarized'
 " CTRLP: Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
 Plug 'kien/ctrlp.vim'
 
-" YouCompleteMe: A code completio engine for Vim
+" YouCompleteMe: A code completion engine for Vim
 "Plug 'valloric/youcompleteme'
 
 " html5.vim: HTML5 omnicomplete and syntax
@@ -66,6 +66,25 @@ Plug 'slim-template/vim-slim'
 
 " vim-arduino: vim plugin for compiling and uploading arduino sketches
 Plug 'stevearc/vim-arduino'
+
+" vim-gitgutter: A Vim plugin which shows a git diff in the gutter(sign column) and stages/undoes hunks.
+Plug 'airblade/vim-gitgutter'
+
+" SwiftDoc: generate markup for Swift functions
+Plug 'https://github.com/aciidb0mb3r/SwiftDoc.vim'
+
+" SwiftPlayground: Plat with Swift code in Vim
+Plug 'https://github.com/jerrymarino/SwiftPlayground.vim'
+
+" vim-pbxproj: Syntax highlighting for pbxproj files in Vim.
+Plug 'cfdrake/vim-pbxproj'
+
+" vim-rdf: A bundle of vimfiles for editing RDF data(syntaxes, completion,
+" etc.)
+Plug 'niklasl/vim-rdf'
+
+" Tabular: Vim script for text filtering and alignment
+Plug 'godlygeek/tabular'
 
 call plug#end()
 
@@ -142,3 +161,10 @@ au BufNewFile,BufRead Scanfile set ft=ruby
 " vim-arduino
 let g:arduino_board = 'arduino:avr:mega2560'
 let g:arduino_programmer = 'arduino:avrisp'
+
+" Enable Omni Completion
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
+" YouCompleteMe
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
