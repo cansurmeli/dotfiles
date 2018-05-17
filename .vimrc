@@ -46,9 +46,6 @@ Plug 'othree/html5.vim'
 " vim-arduino-syntax: Arduino syntax files
 Plug 'sudar/vim-arduino-syntax'
 
-" vim-airline: lean & mean status/tabline
-Plug 'bling/vim-airline'
-
 " ag: search using the silver searcher
 Plug 'ervandew/ag'
 
@@ -86,10 +83,19 @@ Plug 'niklasl/vim-rdf'
 " Tabular: Vim script for text filtering and alignment
 Plug 'godlygeek/tabular'
 
-call plug#end()
+" vim-octave:  Syntax highlighting for GNU Octave
+Plug 'jvirtanen/vim-octave'
 
-" EMMET PLUGIN SETTINGS
-" let g:user_emmet_leader_key='<C-Z>'		" remap the leader to Ctrl-z
+" neco-ghc: A completion plugin for Haskell, usign ghc-mod
+Plug 'eagletmt/neco-ghc'
+
+" clang complete: A Vim plugin that use clang for completing C/C++ code.
+Plug 'rip-rip/clang_complete'
+
+" AutoClose: This plugin for Vim enable an auto-close chars feature for you.
+"Plug 'townk/vim-autoclose'
+
+call plug#end()
 
 " Apply Arduino syntax to the correct files
 au BufRead,BufNewFile *.pde set filetype=arduino
@@ -100,11 +106,12 @@ au BufRead,BufNewFile *.ino set filetype=arduino
 
 " COLORS
 syntax enable						" enable syntax processing
-set background=dark			" choose the dark option of the solarized theme
-colorscheme solarized		" use the solarized theme
+"set background=dark			" choose the dark option of the solarized theme
+"colorscheme solarized		" use the solarized theme
 
 " SPACES & TABS
 set tabstop=2						" number of visual spaces per TAB
+set shiftwidth=2				" number of space characters inserted for indentation
 set softtabstop=2				" number of spaces in a tab while editing
 set noexpandtab					" tabs are tabs, not spaces
 
@@ -144,8 +151,10 @@ let g:syntastic_swift_checkers = ['swiftpm', 'swiftlint']		" from swift.vim
 
 " vim-airline configuration
 set laststatus=2
-let g:airline#extensions#branch#enabled=1
-let g:airline#extensions#hunks#enabled=0
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
+let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename for the buffers
 
 " vim-fastlane: Enable syntax highlighting for fastlane configuration files in
 " vim
@@ -166,5 +175,40 @@ let g:arduino_programmer = 'arduino:avrisp'
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
-" YouCompleteMe
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+" neco-ghc: Haskell plugin
+let g:ycm_semantic_triggers = {'haskell' : ['.']} " enables auto-completion
+let g:haskellmode_completion_ghc = 0
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+" clang complete
+ let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+
+ " Command Make will call make and then cwindow which
+" opens a 3 line error window if any errors are found.
+" If no errors, it closes any open cwindow.
+" http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
+command -nargs=* Make make <args> | cwindow 4
+:map <Leader>c :Make<CR>
+
+" BUFFER MANAGEMENT
+" This allows buffers to be hidden if you've modified a buffer.
+" This is almost a must if you wish to use buffers in this way.
+set hidden
+
+" To open a new empty buffer
+" This replaces :tabnew which I used to bind to this mapping
+nmap <leader>T :enew<cr>
+
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+
+" Move to the previous buffer
+nmap <leader>p :bprevious<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
+

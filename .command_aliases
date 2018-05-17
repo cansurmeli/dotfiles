@@ -81,7 +81,7 @@ alias diff='colordiff'
 # Shorten the waiting interval in between
 alias fastping='ping -c 100 -s.2'
 
-alias top='atop'
+#alias top='atop'
 
 alias df='df -H'
 alias du='du -ch'
