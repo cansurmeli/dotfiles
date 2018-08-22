@@ -92,6 +92,9 @@ Plug 'eagletmt/neco-ghc'
 " clang complete: A Vim plugin that use clang for completing C/C++ code.
 Plug 'rip-rip/clang_complete'
 
+" Vim Game : Snake
+Plug 'johngrib/vim-game-snake'
+
 " AutoClose: This plugin for Vim enable an auto-close chars feature for you.
 "Plug 'townk/vim-autoclose'
 
@@ -181,7 +184,23 @@ let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " clang complete
- let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+set conceallevel=2
+set concealcursor=vin
+let g:clang_snippets=1
+let g:clang_conceal_snippets=1
+let g:clang_snippets_engine='clang_complete'
+
+" Complete options (disable preview scratch window, longest removed to aways show menu)
+set completeopt=menu,menuone
+
+" Limit popup menu height
+set pumheight=20
+
+" SuperTab completion fall-back 
+let g:SuperTabDefaultCompletionType='<c-x><c-u><c-p>'
+
+
 
  " Command Make will call make and then cwindow which
 " opens a 3 line error window if any errors are found.
@@ -212,3 +231,33 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 " Show all open buffers and their status
 nmap <leader>bl :ls<CR>
 
+" force write a non-sudo opened file via `:w!!` (type in a fast manner)
+cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+
+" Use system clipboard as the default one
+set clipboard=unnamed
+
+" centralised swapfiles
+set directory^=$HOME/.vim/swapfiles//
+
+" Save a file without root permission
+" https://www.cyberciti.biz/faq/vim-vi-text-editor-save-file-without-root-permission/
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+
+" Split to the right
+set splitright
+
+
+
+
+
+" Auto closing an HTML tag
+" http://vim.wikia.com/wiki/Auto_closing_an_HTML_tag
+
+" Making Parenthesis And Brackets Handling Easier
+" http://vim.wikia.com/wiki/Making_Parenthesis_And_Brackets_Handling_Easier
+inoremap ( ()<Esc>i
+
+inoremap ( ()<Esc>:let leavechar=")"<CR>i
+inoremap [ []<Esc>:let leavechar="]"<CR>i
+imap <C-j> <Esc>:exec "normal f" . leavechar<CR>a
