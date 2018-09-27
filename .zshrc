@@ -12,9 +12,7 @@ fi
 
 # Source my customisations
 source ~/.command_aliases
-source ~/.directory_aliases
 source ~/.functions
-source ~/.confidential_functions
 
 export PATH="$HOME/.fastlane/bin:$PATH"
 

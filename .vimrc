@@ -247,7 +247,8 @@ command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 " Split to the right
 set splitright
 
-
+" Emmet | redefine trigger key
+let g:user_emmet_leader_key='<C-Z>'
 
 
 
