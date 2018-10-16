@@ -6,23 +6,3 @@ getSwiftGitIgnore() {
 	wget -q https://gist.githubusercontent.com/octocat/9257657/raw/3f9569e65df83a7b328b39a091f0ce9c6efc6429/.gitignore
 	wget -q https://raw.githubusercontent.com/github/gitignore/master/Swift.gitignore -O ->> .gitignore
 }
-
-hiddenFiles() {
-	STATUS=$(defaults read com.apple.finder AppleShowAllFiles)
-	case "$STATUS" in
-    "TRUE") OPTION="FALSE" ;;
-    "FALSE") OPTION="TRUE" ;;
-	esac
-	defaults write com.apple.finder AppleShowAllFiles $OPTION
-
-	killall Finder
-}
-
-forceEject() {
-	diskutil unmountDisk force /Volumes/$1
-}
-
-resetTouchBar() {
-	sudo launchctl bootout system /System/Library/LaunchDaemons/com.apple.touchbarserver.plist
-	sudo launchctl bootstrap system /System/Library/LaunchDaemons/com.apple.touchbarserver.plist
-}

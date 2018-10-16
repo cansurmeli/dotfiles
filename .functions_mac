@@ -1,0 +1,19 @@
+hiddenFiles() {
+	STATUS=$(defaults read com.apple.finder AppleShowAllFiles)
+	case "$STATUS" in
+    "TRUE") OPTION="FALSE" ;;
+    "FALSE") OPTION="TRUE" ;;
+	esac
+	defaults write com.apple.finder AppleShowAllFiles $OPTION
+
+	killall Finder
+}
+
+forceEject() {
+	diskutil unmountDisk force /Volumes/$1
+}
+
+resetTouchBar() {
+	sudo launchctl bootout system /System/Library/LaunchDaemons/com.apple.touchbarserver.plist
+	sudo launchctl bootstrap system /System/Library/LaunchDaemons/com.apple.touchbarserver.plist
+}

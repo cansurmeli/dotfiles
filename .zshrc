@@ -11,8 +11,12 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Source my customisations
-source ~/.command_aliases
+source ~/.aliases
+source ~/.aliases_mac
+source ~/.aliases_rpi
 source ~/.functions
+source ~/.functions_mac
+source ~/.functions_rpi
 
 export PATH="$HOME/.fastlane/bin:$PATH"
 
