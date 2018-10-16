@@ -1,4 +1,4 @@
-hiddenFiles() {
+toggleHiddenFiles() {
 	STATUS=$(defaults read com.apple.finder AppleShowAllFiles)
 	case "$STATUS" in
     "TRUE") OPTION="FALSE" ;;
@@ -19,6 +19,11 @@ resetTouchBar() {
 }
 
 updateSystem() {
+	# Grab sudo
+	echo -e "\e[34mSTATUS: Later on when updating PIP, sudo privileges will be required. Grant it now so that you can leave these processes on their own.\033[0m"
+	sudo cat /dev/null			# execute a dummy command to grab it
+	echo ""
+
 	# Homebrew
 	echo -e "\e[34mSTATUS: Updating Homebrew...\033[0m"
 	brew update
