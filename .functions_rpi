@@ -1,3 +1,24 @@
 toggleLeds() {
+	STATUS_GREEN="$(cat /sys/class/leds/led0/brightness)"
+	STATUS_RED="$(cat /sys/class/leds/led1/brightness)"
 	
+	if [ "$STATUS_GREEN" -eq 0 ]; then
+		echo 1 | sudo tee /sys/class/leds/led0/brightness
+		sleep 1	
+		echo "GREEN LED: off >>> on"
+	else
+		echo 0 | sudo tee /sys/class/leds/led0/brightness
+		sleep 1
+		echo "GREEN LED: on >>> off"
+	fi
+	
+	if [ "$STATUS_RED" -eq 0 ]; then
+		echo 1 | sudo tee /sys/class/leds/led1/brightness
+		sleep 1
+		echo "RED LED: off >>> on"
+	else
+		echo 0 | sudo tee /sys/class/leds/led1/brightness
+		sleep 1
+		echo "RED LED: on >>> off"
+	fi
 }
