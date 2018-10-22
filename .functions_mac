@@ -75,3 +75,7 @@ updateSystem() {
 	echo -e "\e[34mDONE\033[0m"
 	echo ""
 }
+
+launchNetworkUtility() {
+	open /System/Library/CoreServices/Applications/Network\ Utility.app
+}
