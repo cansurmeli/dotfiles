@@ -15,6 +15,7 @@ then
 
 	sed -i '' -e '/aliases_mac/d' .zshrc
 	sed -i '' -e '/aliases_rpi/d' .zshrc
+	sed -i '' -e '/functions_apple_dev/d' .zshrc
 	sed -i '' -e '/functions_mac/d' .zshrc
 	sed -i '' -e '/functions_rpi/d' .zshrc
 	
@@ -40,6 +41,7 @@ then
 	cp .vimrc ~/
 
 	sed -i '' -e '/aliases_mac/d' .zshrc
+	sed -i '' -e '/functions_apple_dev/d' .zshrc
 	sed -i '' -e '/functions_mac/d' .zshrc
 	
 	cp .zshrc ~/
