@@ -4,3 +4,4 @@ alias ss='open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Re
 alias listRemoteSSHClients='dns-sd -B _ssh._tcp'
 alias localIP='ipconfig getifaddr en0'
 alias externalIP='dig +short myip.opendns.com @resolver1.opendns.com'
+alias fl='bundle exec fastlane'

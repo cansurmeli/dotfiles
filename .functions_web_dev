@@ -1,0 +1,16 @@
+developWeb() {
+	git clone https://github.com/cansurmeli/Skeleton-Sass.git
+	mv Skeleton-Sass $1
+	cd $1
+	git init
+	git add * .*
+	git commit -a -m "Initial commit."	
+}
+
+developHugo() {
+	hugo new site $1
+	cd $1
+	git init
+	git add . .*
+	git commit -a -m "Initial commit"
+}
