@@ -43,6 +43,7 @@ then
 	sed -i '' -e '/aliases_mac/d' .zshrc
 	sed -i '' -e '/functions_apple_dev/d' .zshrc
 	sed -i '' -e '/functions_mac/d' .zshrc
+	sed -i '' -e '/web_dev/d' .zshrc
 	
 	cp .zshrc ~/
 else
