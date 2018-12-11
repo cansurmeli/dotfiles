@@ -34,6 +34,12 @@ call plug#begin('~/.vim/plugged')
 
 	" Vim Game: Snake
 	Plug 'johngrib/vim-game-snake'
+
+	" Goyo: Distraction-free writing in Vim
+	Plug 'junegunn/goyo.vim'
+
+	" Limelight: Provides focus mode.
+	Plug 'junegunn/limelight.vim'
 call plug#end()
 
 """""""""""
@@ -74,12 +80,12 @@ nnoremap <leader><space> :nohlsearch<CR>
 set number         " show line numbers
 set cursorline     " highlight current line
 set wildmenu       " visual autocomplete for the command menu
-set lazyredraw     " redraw only when we need to
 set showmatch      " highlight matching [{()}]
 set noshowmode     " do not display the current mode as there is vim-airline
+set pumheight=20   " Limit popup menu height
+set lazyredraw
 set splitright
 set backspace=2
-set pumheight=20 " Limit popup menu height
 
 " BUFFER MANAGEMENT
 " This allows buffers to be hidden if you've modified a buffer.
@@ -105,7 +111,7 @@ nmap <leader>bl :ls<CR>
 inoremap ( ()<Esc>i
 inoremap ( ()<Esc>:let leavechar=")"<CR>i
 inoremap [ []<Esc>:let leavechar="]"<CR>i
-inoremap { []<Esc>:let leavechar="}"<CR>i
+inoremap { {}<Esc>:let leavechar="}"<CR>i
 imap <C-j> <Esc>:exec "normal f" . leavechar<CR>a
 
 " OTHER
@@ -136,7 +142,7 @@ let g:clang_snippets_engine  = 'clang_complete'
 " EMMET
 """""""
 " Redefine the trigger key
-let g:user_emmet_leader_key            = '<C-E>'
+"let g:user_emmet_leader_key            = '<C-E>'
 
 " Enable just for html/css
 let g:user_emmet_install_global        = 0
@@ -153,11 +159,25 @@ au   BufNewFile,BufRead   Matchfile     set   ft = ruby
 au   BufNewFile,BufRead   Snapfile      set   ft = ruby
 au   BufNewFile,BufRead   Scanfile      set   ft = ruby
 
+"""""""""""
+" LIMELIGHT
+"""""""""""
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
 """""""""""""
 " VIM-AIRLINE
 """""""""""""
 set laststatus=2
-let g:airline#extensions#branch#enabled   = 1
-let g:airline#extensions#hunks#enabled    = 0
-let g:airline#extensions#tabline#enabled  = 1    " Enable the list of buffers
-let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename for the buffers
+let g:airline#extensions#branch#enabled=1
+let g:airline#extensions#hunks#enabled=0
+let g:airline#extensions#tabline#enabled=1    " Enable the list of buffers
+let g:airline#extensions#tabline#fnamemod=':t' " Show just the filename for the buffers
