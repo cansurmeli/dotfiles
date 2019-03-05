@@ -3,7 +3,9 @@
 # macOS does not support the `--color` option
 
 # Use a long listing format
-alias ll='ls -la'
+alias l='ls -1'
+alias ll='ls -1A'
+alias lll='ls -la'
 
 alias l.='ls -d .* --color=auto'
 
