@@ -46,6 +46,11 @@ call plug#begin('~/.vim/plugged')
 
 	" typewriter: An iA Writer inspired theme.
 	Plug 'logico-dev/typewriter'
+
+	" vim-markdown-toc
+	Plug 'mzlogin/vim-markdown-toc'
+
+	Plug 'vim-scripts/hlint'
 call plug#end()
 
 """""""""""
@@ -61,15 +66,15 @@ call plug#end()
 " VIM'S OWN SETTINGS
 """"""""""""""""""""
 " DON'T USE THE ARROW KEYS
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+"noremap <Up> <NOP>
+"noremap <Down> <NOP>
+"noremap <Left> <NOP>
+"noremap <Right> <NOP>
 
-inoremap <Up> <NOP>
-inoremap <Down> <NOP>
-inoremap <Left> <NOP>
-inoremap <Right> <NOP>
+"inoremap <Up> <NOP>
+"inoremap <Down> <NOP>
+"inoremap <Left> <NOP>
+"inoremap <Right> <NOP>
 
 " GENERAL
 set foldenable
@@ -92,6 +97,11 @@ set hlsearch						" highlight matches
 
 " Stop search highlighting map to ,<space>
 nnoremap <leader><space> :nohlsearch<CR>
+
+" New line without insert mode
+" https://vim.fandom.com/wiki/Insert_newline_without_entering_insert_mode
+"nmap <S-Enter> O<Esc>
+"nmap <CR> o<Esc>
 
 " UI CONFIG
 set number         " show line numbers
@@ -125,11 +135,11 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 
 " PARANTHESIS & BRACKETS
-inoremap ( ()<Esc>i
-inoremap ( ()<Esc>:let leavechar=")"<CR>i
-inoremap [ []<Esc>:let leavechar="]"<CR>i
-inoremap { {}<Esc>:let leavechar="}"<CR>i
-imap <C-j> <Esc>:exec "normal f" . leavechar<CR>a
+"inoremap ( ()<Esc>i
+"inoremap ( ()<Esc>:let leavechar=")"<CR>i
+"inoremap [ []<Esc>:let leavechar="]"<CR>i
+"inoremap { {}<Esc>:let leavechar="}"<CR>i
+"imap <C-j> <Esc>:exec "normal f" . leavechar<CR>a
 
 " OTHER
 " force write a non-sudo opened file via `:w!!` (type in a fast manner)
@@ -181,7 +191,6 @@ au   BufNewFile,BufRead   Scanfile      set   ft = ruby
 """""""""""
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
-n
 " Color name (:help cterm-colors) or ANSI code
 let g:limelight_conceal_ctermfg = 'gray'
 let g:limelight_conceal_ctermfg = 240
@@ -198,6 +207,7 @@ let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#hunks#enabled=0
 let g:airline#extensions#tabline#enabled=1    " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod=':t' " Show just the filename for the buffers
+let g:airline#extension#ale#enabled = 1
 
 """""""""""""
 " LIMELIGHT
@@ -226,9 +236,54 @@ let g:limelight_eop = '\ze\n^\s'
 "   Set it to -1 not to overrule hlsearch
 let g:limelight_priority = -1
 
+"""""""""""""
 " TYPEWRITER
+"""""""""""""
 " Set typewriter as colorscheme
 "colorscheme typewriter
 
 " Set typewriter airline theme
 "let g:airline_theme = 'typewriter'
+
+"""""""""""""
+" ALE
+"""""""""""""
+let b:ale_linters = {
+			\'haskell': ['hlint', 'hdevtools'], 
+			\'git': ['gitlint'],
+			\'vim': ['vint'],
+			\'swift': ['swiftlint'],
+			\'matlab':['mlint']
+			\}
+let b:ale_fixers = {
+			\'css': ['prettier'],
+			\'haskell': ['hfmt']
+			\}
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
+let g:ale_linters_explicit = 1			" lint only when defined, otherwise too many noise
+
+"""""""""""""
+" TESTING
+"""""""""""""
+" Mastering Vim Quickly #43
+" Easy git blame
+command! -nargs=* Blame call s:GitBlame()
+
+function! s:GitBlame()
+    let cmd = "git blame -w " . bufname("%")
+    let nline = line(".") + 1
+    botright new
+    execute "$read !" . cmd
+    execute "normal " . nline . "gg"
+    execute "set filetype=perl" 
+endfunction
+
+nnoremap <leader>gb :Blame
+
+" Mastering Vim Quickly #45
+" Move visual selection
+vnoremap J :m '>+1<cr>gv=gv
+vnoremap K :m '<-2<cr>gv=gv
