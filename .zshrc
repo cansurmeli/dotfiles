@@ -13,11 +13,9 @@ fi
 # Source my customisations
 source ~/.aliases
 source ~/.aliases_mac
-source ~/.aliases_rpi
 source ~/.functions
 source ~/.functions_apple_dev
 source ~/.functions_mac
-source ~/.functions_rpi
 source ~/.functions_web_dev
 
 export PATH="$HOME/.fastlane/bin:$PATH"
