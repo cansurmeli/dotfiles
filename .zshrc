@@ -10,6 +10,8 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+export PATH="~/.bin:$PATH"
+
 # My customisations
 source ~/.aliases
 source ~/.aliases_mac
