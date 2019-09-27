@@ -65,45 +65,67 @@ call plug#end()
 """"""""""""""""""""
 " VIM'S OWN SETTINGS
 """"""""""""""""""""
-" DON'T USE THE ARROW KEYS
-"noremap <Up> <NOP>
-"noremap <Down> <NOP>
-"noremap <Left> <NOP>
-"noremap <Right> <NOP>
-
-"inoremap <Up> <NOP>
-"inoremap <Down> <NOP>
-"inoremap <Left> <NOP>
-"inoremap <Right> <NOP>
-
-" GENERAL
+"""""""""""
+" GENERAL "
+"""""""""""
 set foldenable
-syntax enable
 let mapleader=","
+set hidden
+set nocompatible				" Use Vim settings, rather than Vi settings
+set confirm							" Display a confirmation dialog when closing an unsaved file
+set clipboard=unnamed		" use the system clipboard
 
-" ENABLE OMNI-COMPLETION
+""""""""""""""""""
+" TEXT RENDERING "
+""""""""""""""""""
+set encoding=utf-8
+set linebreak
+set scrolloff=3
+set sidescrolloff=5
+syntax enable
+
+"""""""""
+" NETRW "
+"""""""""
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 3
+let g:netrw_winsize = 20
+
+""""""""""""""""""""""""""
+" ENABLE OMNI-COMPLETION "
+""""""""""""""""""""""""""
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
-" SPACES & TABS
+"""""""""""""""""
+" SPACES & TABS "
+"""""""""""""""""
 set tabstop=2						" number of visual spaces per TAB
 set shiftwidth=2				" number of space characters inserted for indentation
 set softtabstop=2				" number of spaces in a tab while editing
 set noexpandtab					" tabs are tabs, not spaces
 
-" SEARCHING
-set incsearch						" search as characters are entered
-set hlsearch						" highlight matches
+"""""""""""""""
+" DIRECTORIES "
+"""""""""""""""
+" Centralise the directories for the swap and backup files so they don't
+" scatter around
+set directory=$HOME/.vim/swp//
+set backupdir=$HOME/.vim/backup//
 
+"""""""""""""
+" SEARCHING "
+"""""""""""""
+set incsearch						" find the next match as we type the search
+set hlsearch						" highlight the searches by default
+set ignorecase					" ignore case when searching
+set smartcase						" unless a capital is types, the casing isn't ignored
 " Stop search highlighting map to ,<space>
 nnoremap <leader><space> :nohlsearch<CR>
 
-" New line without insert mode
-" https://vim.fandom.com/wiki/Insert_newline_without_entering_insert_mode
-"nmap <S-Enter> O<Esc>
-"nmap <CR> o<Esc>
-
-" UI CONFIG
+"""""""""""""
+" UI CONFIG "
+"""""""""""""
 set number         " show line numbers
 set cursorline     " highlight current line
 set wildmenu       " visual autocomplete for the command menu
@@ -113,8 +135,20 @@ set pumheight=20   " Limit popup menu height
 set lazyredraw
 set splitright
 set backspace=2
+set ruler								" always show the cursor position
+set noerrorbells				" disable beep on errors
+set visualbell					" flash the screen upon an error
+set mouse=a
 
-" BUFFER MANAGEMENT
+" Cursor Shape
+" https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
+let &t_SI.="\e[2 q" "SI = INSERT mode
+let &t_SR.="\e[2 q" "SR = REPLACE mode
+let &t_EI.="\e[2 q" "EI = NORMAL mode (ELSE)
+
+"""""""""""""""""""""
+" BUFFER MANAGEMENT "
+"""""""""""""""""""""
 " This allows buffers to be hidden if you've modified a buffer.
 " This is almost a must if you wish to use buffers in this way.
 set hidden
@@ -134,22 +168,11 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 " Show all open buffers and their status
 nmap <leader>bl :ls<CR>
 
-" PARANTHESIS & BRACKETS
-"inoremap ( ()<Esc>i
-"inoremap ( ()<Esc>:let leavechar=")"<CR>i
-"inoremap [ []<Esc>:let leavechar="]"<CR>i
-"inoremap { {}<Esc>:let leavechar="}"<CR>i
-"imap <C-j> <Esc>:exec "normal f" . leavechar<CR>a
-
-" OTHER
-" force write a non-sudo opened file via `:w!!` (type in a fast manner)
+"""""""""
+" OTHER "
+"""""""""
+" Force write a non-sudo opened file via `:w!!` (type in a fast manner)
 cnoremap w! :execute ':silent w !sudo tee % > /dev/null' | :edit!
-
-" Use system clipboard as the default one
-set clipboard=unnamed
-
-" centralised swapfiles
-set directory^=$HOME/.vim/swapfiles/
 
 " Complete options (disable preview scratch window, longest removed away to show the menu)
 set completeopt=menu,menuone
@@ -157,27 +180,50 @@ set completeopt=menu,menuone
 " SuperTab completion fall-back 
 let g:SuperTabDefaultCompletionType='<c-x><c-u><c-p>'
 
-""""""""""""""""
-" CLANG COMPLETE
-""""""""""""""""
+" Mastering Vim Quickly #43
+" Easy git blame
+command! -nargs=* Blame call s:GitBlame()
+
+function! s:GitBlame()
+    let cmd = "git blame -w " . bufname("%")
+    let nline = line(".") + 1
+    botright new
+    execute "$read !" . cmd
+    execute "normal " . nline . "gg"
+    execute "set filetype=perl" 
+endfunction
+
+nnoremap <leader>gb :Blame
+
+" Mastering Vim Quickly #45
+" Move visual selection
+vnoremap J :m '>+1<cr>gv=gv
+vnoremap K :m '<-2<cr>gv=gv
+
+" Mastering Vim Quickly #67
+autocmd BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -tplain -o /dev/stdout
+
+""""""""""""""""""
+" CLANG COMPLETE "
+""""""""""""""""""
 let g:clang_library_path     = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
 let g:clang_snippets         = 1
 let g:clang_conceal_snippets = 1
 let g:clang_snippets_engine  = 'clang_complete'
 
-"""""""
-" EMMET
-"""""""
+"""""""""
+" EMMET "
+"""""""""
 " Redefine the trigger key
 "let g:user_emmet_leader_key            = '<C-E>'
 
 " Enable just for html/css
-let g:user_emmet_install_global        = 0
+let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
-"""""""""
-"FASTLANE
-"""""""""
+"""""""""""
+"FASTLANE "
+"""""""""""
 au   BufNewFile,BufRead   Appfile       set   ft = ruby
 au   BufNewFile,BufRead   Deliverfile   set   ft = ruby
 au   BufNewFile,BufRead   Fastfile      set   ft = ruby
@@ -186,9 +232,9 @@ au   BufNewFile,BufRead   Matchfile     set   ft = ruby
 au   BufNewFile,BufRead   Snapfile      set   ft = ruby
 au   BufNewFile,BufRead   Scanfile      set   ft = ruby
 
-"""""""""""
-" LIMELIGHT
-"""""""""""
+"""""""""""""
+" LIMELIGHT "
+"""""""""""""
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 " Color name (:help cterm-colors) or ANSI code
@@ -199,9 +245,9 @@ let g:limelight_conceal_ctermfg = 240
 let g:limelight_conceal_guifg = 'DarkGray'
 let g:limelight_conceal_guifg = '#777777'
 
-"o""""""""""""
-" VIM-AIRLINE
-"""""""""""""
+"""""""""""""""
+" VIM-AIRLINE "
+"""""""""""""""
 set laststatus=2
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#hunks#enabled=0
@@ -210,7 +256,7 @@ let g:airline#extensions#tabline#fnamemod=':t' " Show just the filename for the 
 let g:airline#extension#ale#enabled = 1
 
 """""""""""""
-" LIMELIGHT
+" LIMELIGHT "
 """""""""""""
 " Color name (:help cterm-colors) or ANSI code
 let g:limelight_conceal_ctermfg = 'gray'
@@ -236,18 +282,18 @@ let g:limelight_eop = '\ze\n^\s'
 "   Set it to -1 not to overrule hlsearch
 let g:limelight_priority = -1
 
-"""""""""""""
-" TYPEWRITER
-"""""""""""""
+""""""""""""""
+" TYPEWRITER "
+""""""""""""""
 " Set typewriter as colorscheme
 "colorscheme typewriter
 
 " Set typewriter airline theme
 "let g:airline_theme = 'typewriter'
 
-"""""""""""""
-" ALE
-"""""""""""""
+"""""""
+" ALE "
+"""""""
 let b:ale_linters = {
 			\'haskell': ['hlint', 'hdevtools'], 
 			\'git': ['gitlint'],
@@ -264,26 +310,3 @@ let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters_explicit = 1			" lint only when defined, otherwise too many noise
-
-"""""""""""""
-" TESTING
-"""""""""""""
-" Mastering Vim Quickly #43
-" Easy git blame
-command! -nargs=* Blame call s:GitBlame()
-
-function! s:GitBlame()
-    let cmd = "git blame -w " . bufname("%")
-    let nline = line(".") + 1
-    botright new
-    execute "$read !" . cmd
-    execute "normal " . nline . "gg"
-    execute "set filetype=perl" 
-endfunction
-
-nnoremap <leader>gb :Blame
-
-" Mastering Vim Quickly #45
-" Move visual selection
-vnoremap J :m '>+1<cr>gv=gv
-vnoremap K :m '<-2<cr>gv=gv
