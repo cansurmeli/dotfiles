@@ -84,6 +84,3 @@ alias fastping='ping -c 100 -s.2'
 #alias top='atop'
 alias df='df -H'
 alias du='du -ch'
-
-# MISCELLANEOUS
-alias getGitIgnore='wget https://gist.githubusercontent.com/octocat/9257657/raw/3f9569e65df83a7b328b39a091f0ce9c6efc6429/.gitignore'

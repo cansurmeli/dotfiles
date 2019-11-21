@@ -1,3 +1,22 @@
 md() {
 	curl --data "u=$1" http://fuckyeahmarkdown.com/go/ > ~/Desktop/post.md
 }
+
+getGitIgnore() {
+	# Retrieve the basic gitignore file
+	wget -q https://gist.githubusercontent.com/octocat/9257657/raw/3f9569e65df83a7b328b39a091f0ce9c6efc6429/.gitignore
+
+	# If a file type has been asked, append it to the basic gitignore file above
+	if [ -n "$1" ]; then
+		# Append two empty lines to the already retrieved .gitignore file
+		# So that the additonal files get appended properly
+		echo "" >> .gitignore
+		echo "" >> .gitignore
+
+		# Concatenate the file type to the base URL
+		baseURL="https://raw.githubusercontent.com/cansurmeli/gitignore/master/"
+		fileURL="$baseURL$1.gitignore"
+
+		wget --quiet "$fileURL" --output-document ->> .gitignore
+	fi
+}
