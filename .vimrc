@@ -8,9 +8,6 @@ call plug#begin('~/.vim/plugged')
 	" NERD COMMENTER: Comment functions so powerful—no comment necessary.
 	Plug 'scrooloose/nerdcommenter'
 
-	" Syntastic: Syntax checking
-	"Plug 'scrooloose/syntastic'
-
 	" Ale: Asynchronous linting/fixing for Vim and Language Server Protocol(LSP) integration
 	Plug 'w0rp/ale'
 
@@ -50,7 +47,23 @@ call plug#begin('~/.vim/plugged')
 	" vim-markdown-toc
 	Plug 'mzlogin/vim-markdown-toc'
 
+	" hlint: Compiler definition for the hlint (haskell checker) tool
 	Plug 'vim-scripts/hlint'
+
+	" vim-async: normalize async job control api for vim and neovim
+	Plug 'prabirshrestha/async.vim'
+
+	" vim-lsp: Async Language Server Protocol plugin for vim8 and neovim
+	Plug 'prabirshrestha/vim-lsp'
+
+	" swift: Vim runtime files for Swift/syntax highligthing
+	Plug 'keith/swift.vim'
+
+	" vim-lsp-swift: vim-lsp support for Swift
+	Plug 'ryanolsonx/vim-lsp-swift'
+
+	" vim-doge: (Do)cumentation (Ge)nerator (10+ languages) 📚 Generate proper code documentation skeletons with a single keypress.
+	Plug 'kkoomen/vim-doge'
 call plug#end()
 
 """""""""""
@@ -95,7 +108,24 @@ let g:netrw_winsize = 20
 " ENABLE OMNI-COMPLETION "
 """"""""""""""""""""""""""
 filetype plugin on
-set omnifunc=syntaxcomplete#Complete
+"set omnifunc=syntaxcomplete#Complete
+set omnifunc=ale#completion#OmniFunc
+
+""""""""""""""""""""""
+" TRACKPAD BEHAVIOUR "
+""""""""""""""""""""""
+noremap <ScrollWheelUp>      <nop>
+noremap <S-ScrollWheelUp>    <nop>
+noremap <C-ScrollWheelUp>    <nop>
+noremap <ScrollWheelDown>    <nop>
+noremap <S-ScrollWheelDown>  <nop>
+noremap <C-ScrollWheelDown>  <nop>
+noremap <ScrollWheelLeft>    <nop>
+noremap <S-ScrollWheelLeft>  <nop>
+noremap <C-ScrollWheelLeft>  <nop>
+noremap <ScrollWheelRight>   <nop>
+noremap <S-ScrollWheelRight> <nop>
+noremap <C-ScrollWheelRight> <nop>
 
 """""""""""""""""
 " SPACES & TABS "
@@ -104,6 +134,7 @@ set tabstop=2						" number of visual spaces per TAB
 set shiftwidth=2				" number of space characters inserted for indentation
 set softtabstop=2				" number of spaces in a tab while editing
 set noexpandtab					" tabs are tabs, not spaces
+set autoindent
 
 """""""""""""""
 " DIRECTORIES "
@@ -138,7 +169,24 @@ set backspace=2
 set ruler								" always show the cursor position
 set noerrorbells				" disable beep on errors
 set visualbell					" flash the screen upon an error
-set mouse=a
+set mouse=							" disable any and all mouse interactio:186
+
+" Disabling the arrow keys in every mode
+" Make use of Vim instead! :]
+noremap  <Up> ""
+noremap! <Up> <Esc>
+noremap  <Down> ""
+noremap! <Down> <Esc>
+noremap  <Left> ""
+noremap! <Left> <Esc>
+noremap  <Right> ""
+noremap! <Right> <Esc>
+
+" provide hjkl movements in Insert mode via the <Alt> modifier key
+inoremap <A-h> <C-o>h
+inoremap <A-j> <C-o>j
+inoremap <A-k> <C-o>k
+inoremap <A-l> <C-o>l
 
 " Cursor Shape
 " https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
@@ -294,24 +342,89 @@ let g:limelight_priority = -1
 """""""
 " ALE "
 """""""
-let b:ale_linters = {
+let g:ale_linters = {
 			\'haskell': ['hlint', 'hdevtools'], 
 			\'git': ['gitlint'],
 			\'vim': ['vint'],
-			\'swift': ['swiftlint'],
-			\'matlab':['mlint']
+			\'swift': ['sourcekit-lsp'],
+			\'matlab':['mlint'],
+			\'python':['flake8', 'pylint'],
+			\'javascript':['prettier'],
+			\'json':['prettier'],
+			\'R':['lintr', 'styler'],
+			\'yaml':['prettier'],
+			\'sass':['sass-lint'],
+			\'latex':['texlab'],
+			\'java':['javac'],
+			\'c': ['clang']
 			\}
-let b:ale_fixers = {
+let g:ale_fixers = {
 			\'css': ['prettier'],
-			\'haskell': ['hfmt']
+			\'haskell': ['hfmt'],
+			\'python': ['autopep8', 'yapf'],
+			\'java': ['google_java_format'],
+			\'c': ['clang-format']
 			\}
+let g:ale_completion_enabled = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
-let g:ale_linters_explicit = 1			" lint only when defined, otherwise too many noise
+"let g:ale_linters_explicit = 1			" lint only when defined, otherwise too many noise
 
 """"""""
 " GOYO "
 """"""""
 let g:goyo_width=100
+
+"""""""""""
+" VIM-LSP "
+"""""""""""
+" LSP for Swift
+if executable('sourcekit-lsp')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'sourcekit-lsp',
+        \ 'cmd': {server_info->['sourcekit-lsp']},
+        \ 'whitelist': ['swift'],
+        \ })
+endif
+
+" LSP for C/C++
+if executable('clangd')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd', '-background-index']},
+        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ })
+endif
+
+" LSP for CSS/LESS/SASS
+if executable('css-languageserver')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'css-languageserver',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'css-languageserver --stdio']},
+        \ 'whitelist': ['css', 'less', 'sass'],
+        \ })
+endif
+
+" LSP for HTML
+if executable('html-languageserver')                         
+  au User lsp_setup call lsp#register_server({               
+    \ 'name': 'html-languageserver',                     
+    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'html-languageserver --stdio']},                                   
+    \ 'whitelist': ['html'],                             
+  \ })                                                       
+endif
+
+" LSP for Python
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
+""""""""""""
+" vim-doge "
+""""""""""""
