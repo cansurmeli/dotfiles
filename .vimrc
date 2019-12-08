@@ -349,8 +349,8 @@ let g:ale_linters = {
 			\'swift': ['sourcekit-lsp'],
 			\'matlab':['mlint'],
 			\'python':['flake8', 'pylint'],
-			\'javascript':['prettier'],
-			\'json':['prettier'],
+			\'javascript':['eslint'],
+			\'json':['eslint'],
 			\'R':['lintr', 'styler'],
 			\'yaml':['prettier'],
 			\'sass':['sass-lint'],
@@ -363,7 +363,8 @@ let g:ale_fixers = {
 			\'haskell': ['hfmt'],
 			\'python': ['autopep8', 'yapf'],
 			\'java': ['google_java_format'],
-			\'c': ['clang-format']
+			\'c': ['clang-format'],
+			\'javascript': ['eslint']
 			\}
 let g:ale_completion_enabled = 1
 let g:ale_lint_on_text_changed = 'never'

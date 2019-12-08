@@ -84,3 +84,6 @@ alias fastping='ping -c 100 -s.2'
 #alias top='atop'
 alias df='df -H'
 alias du='du -ch'
+
+# Make pip3 the default pip
+alias pip=/usr/local/bin/pip3
