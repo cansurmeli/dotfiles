@@ -19,9 +19,11 @@ alias .4='../../../../'
 alias .5='../../../../../'
 
 # Colorize the grep command's output for ease of use(good for log files)
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
+# -E: extended regular expression support
+alias grep='grep --color=auto -E'
+alias egrep='egrep --color=auto -E'
+alias fgrep='fgrep --color=auto -E'
+alias sed='sed -E'
 
 # Start the calculator with math support
 alias bc='bc -l'
