@@ -66,18 +66,18 @@ call plug#begin('~/.vim/plugged')
 	Plug 'kkoomen/vim-doge'
 call plug#end()
 
-"""""""""""
-" RESOURCES
-"""""""""""
+"""""""""""""
+" RESOURCES "
+"""""""""""""
 " https://dougblack.io/words/a-good-vimrc.html
 " http://vim.wikia.com/wiki/Making_Parenthesis_And_Brackets_Handling_Easier
 " https://github.com/milch/vim-fastlane
 " http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
 " https://www.cyberciti.biz/faq/vim-vi-text-editor-save-file-without-root-permission/
 
-""""""""""""""""""""
-" VIM'S OWN SETTINGS
-""""""""""""""""""""
+""""""""""""""""""""""
+" VIM'S OWN SETTINGS "
+""""""""""""""""""""""
 """""""""""
 " GENERAL "
 """""""""""
@@ -114,6 +114,10 @@ set omnifunc=ale#completion#OmniFunc
 """"""""""""""""""""""
 " TRACKPAD BEHAVIOUR "
 """"""""""""""""""""""
+" Basically disable everything becase:
+" - we're in Vim,
+" - even if they just stand there, it's annoying upon
+" an accidental interaction.
 noremap <ScrollWheelUp>      <nop>
 noremap <S-ScrollWheelUp>    <nop>
 noremap <C-ScrollWheelUp>    <nop>
@@ -251,6 +255,12 @@ vnoremap K :m '<-2<cr>gv=gv
 " Mastering Vim Quickly #67
 autocmd BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -tplain -o /dev/stdout
 
+" Basic curly braces completion
+inoremap {      {}<Left>
+inoremap {<CR>  {<CR>}<Esc>O
+inoremap {{     {
+inoremap {}     {}
+
 """"""""""""""""""
 " CLANG COMPLETE "
 """"""""""""""""""
@@ -293,27 +303,6 @@ let g:limelight_conceal_ctermfg = 240
 let g:limelight_conceal_guifg = 'DarkGray'
 let g:limelight_conceal_guifg = '#777777'
 
-"""""""""""""""
-" VIM-AIRLINE "
-"""""""""""""""
-set laststatus=2
-let g:airline#extensions#branch#enabled=1
-let g:airline#extensions#hunks#enabled=0
-let g:airline#extensions#tabline#enabled=1    " Enable the list of buffers
-let g:airline#extensions#tabline#fnamemod=':t' " Show just the filename for the buffers
-let g:airline#extension#ale#enabled = 1
-
-"""""""""""""
-" LIMELIGHT "
-"""""""""""""
-" Color name (:help cterm-colors) or ANSI code
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_ctermfg = 240
-
-" Color name (:help gui-colors) or RGB color
-let g:limelight_conceal_guifg = 'DarkGray'
-let g:limelight_conceal_guifg = '#777777'
-
 " Default: 0.5
 let g:limelight_default_coefficient = 0.7
 
@@ -329,6 +318,16 @@ let g:limelight_eop = '\ze\n^\s'
 " Highlighting priority (default: 10)
 "   Set it to -1 not to overrule hlsearch
 let g:limelight_priority = -1
+
+"""""""""""""""
+" VIM-AIRLINE "
+"""""""""""""""
+set laststatus=2
+let g:airline#extensions#branch#enabled=1
+let g:airline#extensions#hunks#enabled=0
+let g:airline#extensions#tabline#enabled=1    " Enable the list of buffers
+let g:airline#extensions#tabline#fnamemod=':t' " Show just the filename for the buffers
+let g:airline#extension#ale#enabled = 1
 
 """"""""""""""
 " TYPEWRITER "
