@@ -64,6 +64,9 @@ call plug#begin('~/.vim/plugged')
 
 	" vim-doge: (Do)cumentation (Ge)nerator (10+ languages) 📚 Generate proper code documentation skeletons with a single keypress.
 	Plug 'kkoomen/vim-doge'
+
+	" vim-smoothie: Smooth scrolling for Vim done right
+	Plug 'psliwka/vim-smoothie'
 call plug#end()
 
 """""""""""""
