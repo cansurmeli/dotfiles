@@ -14,8 +14,8 @@ forceEject() {
 }
 
 resetTouchBar() {
-	sudo launchctl bootout system /System/Library/LaunchDaemons/com.apple.touchbarserver.plist
-	sudo launchctl bootstrap system /System/Library/LaunchDaemons/com.apple.touchbarserver.plist
+	sudo pkill TouchBarServer
+	sudo killall "ControlStrip"
 }
 
 launchNetworkUtility() {
