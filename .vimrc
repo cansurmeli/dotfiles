@@ -142,6 +142,12 @@ set shiftwidth=2				" number of space characters inserted for indentation
 set softtabstop=2				" number of spaces in a tab while editing
 set noexpandtab					" tabs are tabs, not spaces
 set autoindent
+" Show Invisibles
+set list
+set listchars=tab:▸\ ,eol:¬
+set listchars=eol:¬,nbsp:·,tab:▸\,trail:~,extends:>,precedes:<
+highlight NonText guifg=#4a4a59
+highlight SpecialKey guifg=#4a4a59
 
 """""""""""""""
 " DIRECTORIES "
@@ -429,5 +435,5 @@ if executable('pyls')
 endif
 
 """"""""""""
-" vim-doge "
+" Show Invisibles "
 """"""""""""
