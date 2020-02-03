@@ -9,7 +9,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'scrooloose/nerdcommenter'
 
 	" Ale: Asynchronous linting/fixing for Vim and Language Server Protocol(LSP) integration
-	Plug 'w0rp/ale'
+	Plug 'dense-analysis/ale'
 
 	" Vim-Airline: Lean & mean status/tabline for vim that's light as air.
 	Plug 'bling/vim-airline'
@@ -27,7 +27,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'godlygeek/tabular'
 
 	" Clang Complete: A Vim plugin that use clang for completing C/C++ code.
-	Plug 'rip-rip/clang_complete'
+	"Plug 'rip-rip/clang_complete'
 
 	" Vim Game: Snake
 	Plug 'johngrib/vim-game-snake'
@@ -50,17 +50,8 @@ call plug#begin('~/.vim/plugged')
 	" hlint: Compiler definition for the hlint (haskell checker) tool
 	Plug 'vim-scripts/hlint'
 
-	" vim-async: normalize async job control api for vim and neovim
-	Plug 'prabirshrestha/async.vim'
-
-	" vim-lsp: Async Language Server Protocol plugin for vim8 and neovim
-	Plug 'prabirshrestha/vim-lsp'
-
 	" swift: Vim runtime files for Swift/syntax highligthing
 	Plug 'keith/swift.vim'
-
-	" vim-lsp-swift: vim-lsp support for Swift
-	Plug 'ryanolsonx/vim-lsp-swift'
 
 	" vim-doge: (Do)cumentation (Ge)nerator (10+ languages) 📚 Generate proper code documentation skeletons with a single keypress.
 	Plug 'kkoomen/vim-doge'
@@ -90,6 +81,7 @@ set hidden
 set nocompatible				" Use Vim settings, rather than Vi settings
 set confirm							" Display a confirmation dialog when closing an unsaved file
 set clipboard=unnamed		" use the system clipboard
+set path+=**						" recursive search
 
 """"""""""""""""""
 " TEXT RENDERING "
@@ -135,19 +127,15 @@ noremap <S-ScrollWheelRight> <nop>
 noremap <C-ScrollWheelRight> <nop>
 
 """""""""""""""""
-" SPACES & TABS "
+" TABS & SPACES "
 """""""""""""""""
 set tabstop=2						" number of visual spaces per TAB
 set shiftwidth=2				" number of space characters inserted for indentation
 set softtabstop=2				" number of spaces in a tab while editing
 set noexpandtab					" tabs are tabs, not spaces
 set autoindent
-" Show Invisibles
 set list
-set listchars=tab:▸\ ,eol:¬
-set listchars=eol:¬,nbsp:·,tab:▸\,trail:~,extends:>,precedes:<
-highlight NonText guifg=#4a4a59
-highlight SpecialKey guifg=#4a4a59
+set listchars=tab:▸\ ,eol:¬,trail:• " show invisibles
 
 """""""""""""""
 " DIRECTORIES "
@@ -229,6 +217,11 @@ nmap <leader>bq :bp <BAR> bd #<CR>
 " Show all open buffers and their status
 nmap <leader>bl :ls<CR>
 
+""""""""""""
+" SNIPPETS "
+""""""""""""
+nnoremap <leader>html :-1read $HOME/.vim/skeletons/html.html<CR>
+
 """""""""
 " OTHER "
 """""""""
@@ -246,12 +239,12 @@ let g:SuperTabDefaultCompletionType='<c-x><c-u><c-p>'
 command! -nargs=* Blame call s:GitBlame()
 
 function! s:GitBlame()
-    let cmd = "git blame -w " . bufname("%")
-    let nline = line(".") + 1
-    botright new
-    execute "$read !" . cmd
-    execute "normal " . nline . "gg"
-    execute "set filetype=perl" 
+	let cmd = "git blame -w " . bufname("%")
+	let nline = line(".") + 1
+	botright new
+	execute "$read !" . cmd
+	execute "normal " . nline . "gg"
+	execute "set filetype=perl" 
 endfunction
 
 nnoremap <leader>gb :Blame
@@ -273,10 +266,10 @@ inoremap {}     {}
 """"""""""""""""""
 " CLANG COMPLETE "
 """"""""""""""""""
-let g:clang_library_path     = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
-let g:clang_snippets         = 1
-let g:clang_conceal_snippets = 1
-let g:clang_snippets_engine  = 'clang_complete'
+"let g:clang_library_path     = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+"let g:clang_snippets         = 1
+"let g:clang_conceal_snippets = 1
+"let g:clang_snippets_engine  = 'clang_complete'
 
 """""""""
 " EMMET "
@@ -434,6 +427,5 @@ if executable('pyls')
         \ })
 endif
 
-""""""""""""
-" Show Invisibles "
-""""""""""""
+"call matchadd('Conceal', '\(^ *\)\@<= ', 0, -1, {'conceal': '-'})
+"set conceallevel=2 concealcursor=nv
