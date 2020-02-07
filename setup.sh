@@ -9,6 +9,10 @@ echo "3 - rPi"
 # Retrieve the user input
 read userPlatform
 
+# Install VimPlug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 # Common files every platform makes use of
 cp .aliases ~/
 cp .functions ~/
