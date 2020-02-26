@@ -13,12 +13,13 @@ fi
 export PATH="~/.bin:$PATH"
 
 # GENERAL
-source ~/.aliases
-source ~/.aliases_mac
-source ~/.functions
-source ~/.functions_apple_dev
-source ~/.functions_mac
-source ~/.functions_web_dev
+source ~/.dotfiles/.aliases
+source ~/.dotfiles/.aliases_mac
+source ~/.dotfiles/.functions
+source ~/.dotfiles/.functions_apple_dev
+source ~/.dotfiles/.functions_mac
+source ~/.dotfiles/.functions_web_dev
+source ~/.dotfiles/.sensible_bash_defaults
 
 # PERSONAL
 

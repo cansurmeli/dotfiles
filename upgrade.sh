@@ -8,8 +8,8 @@ cp ~/.dotfiles/.functions_apple_dev .
 cp ~/.dotfiles/.functions_mac .
 cp ~/.dotfiles/.functions_rpi .
 cp ~/.dotfiles/.functions_web_dev .
-cp ~/.dotfiles/.vimrc .
-cp ~/.dotfiles/.zshrc .
+cp ~/.vimrc .
+cp ~/.zshrc .
 
 # upgrade the vim skeletons
 cp ~/.vim/skeletons/* skeletons/*
