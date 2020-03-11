@@ -9,6 +9,7 @@ cp ~/.dotfiles/.functions_mac .
 cp ~/.dotfiles/.functions_rpi .
 cp ~/.dotfiles/.functions_web_dev .
 cp ~/.vimrc .
+cp ~/.zpreztorc .
 cp ~/.zshrc .
 
 # upgrade the vim skeletons
