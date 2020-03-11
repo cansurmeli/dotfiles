@@ -42,7 +42,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'cespare/vim-toml'
 
 	" typewriter: An iA Writer inspired theme.
-	Plug 'logico-dev/typewriter'
+	Plug 'logico-dev/typewriter-vim'
 
 	" vim-markdown-toc
 	Plug 'mzlogin/vim-markdown-toc'
@@ -58,6 +58,18 @@ call plug#begin('~/.vim/plugged')
 
 	" vim-smoothie: Smooth scrolling for Vim done right
 	Plug 'psliwka/vim-smoothie'
+
+	" vim-pandoc: pandoc integration and utilities for vim
+	Plug 'vim-pandoc/vim-pandoc'
+
+	" vim-pandoc-syntax: pandoc markdown syntax, to be installed alongside vim-pandoc
+	Plug 'vim-pandoc/vim-pandoc-syntax'
+
+	" vim-rmarkdown: Rmarkdown support for vim
+	Plug 'vim-pandoc/vim-rmarkdown'
+
+	" vim-fugitive:  fugitive.vim: A Git wrapper so awesome, it should be illegal
+	Plug 'tpope/vim-fugitive'
 call plug#end()
 
 """""""""""""
@@ -75,13 +87,26 @@ call plug#end()
 """""""""""
 " GENERAL "
 """""""""""
-set foldenable
 let mapleader=","
 set hidden
 set nocompatible				" Use Vim settings, rather than Vi settings
 set confirm							" Display a confirmation dialog when closing an unsaved file
 set clipboard=unnamed		" use the system clipboard
 set path+=**						" recursive search
+
+"""""""""
+" FOLDING
+"""""""""
+set foldenable
+set foldlevelstart=10		" Open most of the folds by default. If set to 0, all folds will be closed.
+set foldnestmax=10			" Folds can be nested. Setting a max value protects you from too many folds.
+set foldmethod=manual		" Defines the type of folding.
+
+" Make the folds persistent in between
+augroup auto save folds
+autocmd!
+autocmd BufWinLeave * mkview
+autocmd BufWinEnter * silent loadview
 
 """"""""""""""""""
 " TEXT RENDERING "
@@ -134,7 +159,7 @@ set shiftwidth=2				" number of space characters inserted for indentation
 set softtabstop=2				" number of spaces in a tab while editing
 set noexpandtab					" tabs are tabs, not spaces
 set autoindent
-set st
+"set st
 set listchars=tab:▸\ ,eol:¬,trail:• " show invisibles
 
 """""""""""""""
@@ -226,7 +251,7 @@ nnoremap <leader>html :-1read $HOME/.vim/skeletons/html.html<CR>
 " OTHER "
 """""""""
 " Force write a non-sudo opened file via `:w!!` (type in a fast manner)
-cnoremap w! :execute ':silent w !sudo tee % > /dev/null' | :edit!
+"cnoremap w! :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " Complete options (disable preview scratch window, longest removed away to show the menu)
 set completeopt=menu,menuone
@@ -291,6 +316,43 @@ au   BufNewFile,BufRead   Gymfile       set   ft = ruby
 au   BufNewFile,BufRead   Matchfile     set   ft = ruby
 au   BufNewFile,BufRead   Snapfile      set   ft = ruby
 au   BufNewFile,BufRead   Scanfile      set   ft = ruby
+
+""""""
+" GOYO
+""""""
+function! s:goyo_enter()
+	Goyo 80
+	colorscheme typewriter-night
+	set linespace=3
+	
+	" Change the cursor from block to i-beam in INSERT mode
+  let &t_SI = "\e[5 q"
+  let &t_EI = "\e[1 q"
+  augroup myCmds
+    au!
+    autocmd VimEnter * silent !echo -ne "\e[1 q"
+  augroup END
+	
+	" Ensure :q to quit even when Goyo is active
+	let b:quitting = 0
+  let b:quitting_bang = 0
+  autocmd QuitPre <buffer> let b:quitting = 1
+  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+endfunction
+
+function! s:goyo_leave()
+  " Quit Vim if this is the only remaining buffer
+  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+    if b:quitting_bang
+      qa!
+    else
+      qa
+    endif
+  endif
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 """""""""""""
 " LIMELIGHT "
@@ -429,3 +491,8 @@ endif
 
 "call matchadd('Conceal', '\(^ *\)\@<= ', 0, -1, {'conceal': '-'})
 "set conceallevel=2 concealcursor=nv
+
+
+"""""""""""
+" TESTING "
+"""""""""""
