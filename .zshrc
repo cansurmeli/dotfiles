@@ -32,7 +32,7 @@ export VISUAL=vim
 # So that Ctrl-A and such does not work.
 # The following solves it
 # https://superuser.com/questions/523564/emacs-keybindings-in-zsh-not-working-ctrl-a-ctrl-e
-bindkey -v
+bindkey -e
 
 # NVM CONFIGURATION
 #export NVM_DIR="$HOME/.nvm"
