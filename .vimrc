@@ -59,14 +59,8 @@ call plug#begin('~/.vim/plugged')
 	" vim-smoothie: Smooth scrolling for Vim done right
 	Plug 'psliwka/vim-smoothie'
 
-	" vim-pandoc: pandoc integration and utilities for vim
-	Plug 'vim-pandoc/vim-pandoc'
-
-	" vim-pandoc-syntax: pandoc markdown syntax, to be installed alongside vim-pandoc
-	Plug 'vim-pandoc/vim-pandoc-syntax'
-
-	" vim-rmarkdown: Rmarkdown support for vim
-	Plug 'vim-pandoc/vim-rmarkdown'
+	" vim-markdown: Markdown Vim mode
+	Plug 'plasticboy/vim-markdown'
 
 	" vim-fugitive:  fugitive.vim: A Git wrapper so awesome, it should be illegal
 	Plug 'tpope/vim-fugitive'
@@ -103,10 +97,10 @@ set foldnestmax=10			" Folds can be nested. Setting a max value protects you fro
 set foldmethod=manual		" Defines the type of folding.
 
 " Make the folds persistent in between
-augroup auto save folds
-autocmd!
-autocmd BufWinLeave * mkview
-autocmd BufWinEnter * silent loadview
+"augroup auto save folds
+"autocmd!
+"autocmd BufWinLeave * mkview
+"autocmd BufWinEnter * silent loadview
 
 """"""""""""""""""
 " TEXT RENDERING "
@@ -317,72 +311,6 @@ au   BufNewFile,BufRead   Matchfile     set   ft = ruby
 au   BufNewFile,BufRead   Snapfile      set   ft = ruby
 au   BufNewFile,BufRead   Scanfile      set   ft = ruby
 
-""""""
-" GOYO
-""""""
-function! s:goyo_enter()
-	Goyo 80
-	colorscheme typewriter-night
-	set linespace=3
-	
-	" Change the cursor from block to i-beam in INSERT mode
-  let &t_SI = "\e[5 q"
-  let &t_EI = "\e[1 q"
-  augroup myCmds
-    au!
-    autocmd VimEnter * silent !echo -ne "\e[1 q"
-  augroup END
-	
-	" Ensure :q to quit even when Goyo is active
-	let b:quitting = 0
-  let b:quitting_bang = 0
-  autocmd QuitPre <buffer> let b:quitting = 1
-  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
-endfunction
-
-function! s:goyo_leave()
-  " Quit Vim if this is the only remaining buffer
-  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-    if b:quitting_bang
-      qa!
-    else
-      qa
-    endif
-  endif
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
-"""""""""""""
-" LIMELIGHT "
-"""""""""""""
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
-" Color name (:help cterm-colors) or ANSI code
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_ctermfg = 240
-
-" Color name (:help gui-colors) or RGB color
-let g:limelight_conceal_guifg = 'DarkGray'
-let g:limelight_conceal_guifg = '#777777'
-
-" Default: 0.5
-let g:limelight_default_coefficient = 0.7
-
-" Number of preceding/following paragraphs to include (default: 0)
-let g:limelight_paragraph_span = 1
-
-" Beginning/end of paragraph
-"   When there's no empty line between the paragraphs
-"   and each paragraph starts with indentation
-let g:limelight_bop = '^\s'
-let g:limelight_eop = '\ze\n^\s'
-
-" Highlighting priority (default: 10)
-"   Set it to -1 not to overrule hlsearch
-let g:limelight_priority = -1
-
 """""""""""""""
 " VIM-AIRLINE "
 """""""""""""""
@@ -398,9 +326,6 @@ let g:airline#extension#ale#enabled = 1
 """"""""""""""
 " Set typewriter as colorscheme
 "colorscheme typewriter
-
-" Set typewriter airline theme
-"let g:airline_theme = 'typewriter'
 
 """""""
 " ALE "
@@ -435,11 +360,6 @@ let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 let g:ale_fix_on_save = 1
 "let g:ale_linters_explicit = 1			" lint only when defined, otherwise too many noise
-
-""""""""
-" GOYO "
-""""""""
-let g:goyo_width=100
 
 """""""""""
 " VIM-LSP "
@@ -488,11 +408,3 @@ if executable('pyls')
         \ 'whitelist': ['python'],
         \ })
 endif
-
-"call matchadd('Conceal', '\(^ *\)\@<= ', 0, -1, {'conceal': '-'})
-"set conceallevel=2 concealcursor=nv
-
-
-"""""""""""
-" TESTING "
-"""""""""""
