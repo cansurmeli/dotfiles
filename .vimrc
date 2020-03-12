@@ -239,7 +239,7 @@ nmap <leader>bl :ls<CR>
 """"""""""""
 " SNIPPETS "
 """"""""""""
-nnoremap <leader>html :-1read $HOME/.vim/skeletons/html.html<CR>
+nnoremap <leader>html :-1read $HOME/.vim/skeletons/template.html<CR>
 
 """""""""
 " OTHER "

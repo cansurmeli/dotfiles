@@ -24,7 +24,7 @@ cp .functions_web_dev ~/.dotfiles/
 
 # Transfer the Vim snippets
 mkdir ~/.vim
-cp -R skeletons ~/.vim
+cp -R vim ~/.vim/
 
 # Other Vim operations
 mkdir ~/.vim/backup

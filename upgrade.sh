@@ -12,8 +12,9 @@ cp ~/.vimrc .
 cp ~/.zpreztorc .
 cp ~/.zshrc .
 
-# upgrade the vim skeletons
-cp ~/.vim/skeletons/* skeletons/*
+mkdir vim
+cp -R ~/.vim/ftplugin vim/
+cp -R ~/.vim/skeletons vim/
 
 # remove the sensitive files being sourced
 sed -i '' -e '/directories/d' .zshrc
