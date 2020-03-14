@@ -12,10 +12,12 @@ cp ~/.vimrc .
 cp ~/.zpreztorc .
 cp ~/.zshrc .
 
-mkdir vim
-cp -R ~/.vim/ftplugin vim/
-cp -R ~/.vim/skeletons vim/
+# Copy my `~/.vim` directory
+# but delete sensitive stuff
+cp -R ~/.vim vim
+rm -rf vim/swp
+rm -rf vim/backup
 
-# remove the sensitive files being sourced
+# Remove the sensitive files being sourced
 sed -i '' -e '/directories/d' .zshrc
 sed -i '' -e '/confidential/d' .zshrc
