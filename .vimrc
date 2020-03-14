@@ -20,9 +20,6 @@ call plug#begin('~/.vim/plugged')
 	" Vim-Gitgutter: A Vim plugin which shows a git diff in the gutter(sign column) and stages/undoes hunks.
 	Plug 'airblade/vim-gitgutter'
 
-	" Vim-Pbxproj: Syntax highlighting for pbxproj files in Vim.
-	Plug 'cfdrake/vim-pbxproj'
-
 	" Tabular: Vim script for text filtering and alignment
 	Plug 'godlygeek/tabular'
 
@@ -87,6 +84,7 @@ set nocompatible				" Use Vim settings, rather than Vi settings
 set confirm							" Display a confirmation dialog when closing an unsaved file
 set clipboard=unnamed		" use the system clipboard
 set path+=**						" recursive search
+set spell spellland=en_gb
 
 """""""""
 " FOLDING
@@ -177,7 +175,7 @@ nnoremap <leader><space> :nohlsearch<CR>
 """""""""""""
 " UI CONFIG "
 """""""""""""
-set number         " show line numbers
+set relativenumber " show relative line numbers
 set cursorline     " highlight current line
 set wildmenu       " visual autocomplete for the command menu
 set showmatch      " highlight matching [{()}]
