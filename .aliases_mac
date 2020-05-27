@@ -4,3 +4,7 @@ alias listRemoteSSHClients='dns-sd -B _ssh._tcp'
 alias localIP='ipconfig getifaddr en0'
 alias externalIP='dig +short myip.opendns.com @resolver1.opendns.com'
 alias fl='bundle exec fastlane'
+
+# macOS's sh is too old, need the new functionalities
+# best option without breaking anything
+alias sh=bash

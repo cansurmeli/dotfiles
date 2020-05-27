@@ -1,0 +1,113 @@
+# ==============================================================================
+# Method without parameters.
+# ==============================================================================
+Given java (method without parameters):
+  class Test {
+    List<Element> createSortedList() {}
+
+    void foo();
+  }
+
+Do (trigger doge):
+  :2\<CR>
+  \<C-d>
+  :8\<CR>
+  \<C-d>
+
+Expect java (method with 'TODO' and a @return tag):
+  class Test {
+    /**
+     * [TODO:description]
+     * @return [TODO:description]
+     */
+    List<Element> createSortedList() {}
+
+    /**
+     * [TODO:description]
+     */
+    void foo();
+  }
+
+# ==============================================================================
+# Methods without return type.
+# ==============================================================================
+Given java (method without return type):
+  class Test {
+    public createSortedList() {}
+  }
+
+Do (trigger doge):
+  :2\<CR>
+  \<C-d>
+
+Expect java (method with 'TODO' and a description):
+  class Test {
+    /**
+     * [TODO:description]
+     */
+    public createSortedList() {}
+  }
+
+# ==============================================================================
+# Methods with parameters.
+# ==============================================================================
+Given java (methods with parameters):
+  class Test {
+    private static MstRelation MyParameterizedMethod(String p1, int p2, Boolean ...params) {}
+
+    ListResultBean<MstRelation> MyParameterizedMethod(String p1, int p2, Boolean... params) {}
+  }
+
+Do (trigger doge):
+  :2\<CR>
+  \<C-d>
+  :12\<CR>
+  \<C-d>
+
+Expect java (generated comments with @param and @return tags):
+  class Test {
+    /**
+     * [TODO:description]
+     *
+     * @param p1 [TODO:description]
+     * @param p2 [TODO:description]
+     * @param params [TODO:description]
+     * @return [TODO:description]
+     */
+    private static MstRelation MyParameterizedMethod(String p1, int p2, Boolean ...params) {}
+
+    /**
+     * [TODO:description]
+     *
+     * @param p1 [TODO:description]
+     * @param p2 [TODO:description]
+     * @param params [TODO:description]
+     * @return [TODO:description]
+     */
+    ListResultBean<MstRelation> MyParameterizedMethod(String p1, int p2, Boolean... params) {}
+  }
+
+# ==============================================================================
+# Methods with parameters.
+# ==============================================================================
+Given java (methods with parameters with '@Override'):
+  class Test {
+    @Override
+    protected void MyParameterizedMethod(String p1, int p2) {}
+  }
+
+Do (trigger doge):
+  :3\<CR>
+  \<C-d>
+
+Expect java (generated comments with @param and @return tags inserted above the '@Override'):
+  class Test {
+    /**
+     * [TODO:description]
+     *
+     * @param p1 [TODO:description]
+     * @param p2 [TODO:description]
+     */
+    @Override
+    protected void MyParameterizedMethod(String p1, int p2) {}
+  }

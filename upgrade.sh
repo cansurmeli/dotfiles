@@ -11,10 +11,11 @@ cp ~/.dotfiles/.functions_rpi .
 cp ~/.dotfiles/.functions_web_dev .
 cp ~/.zpreztorc .
 cp ~/.zshrc .
+cp -R ~/.bin .
 
 # Copy my `~/.vim` directory
 # but delete sensitive stuff
-cp -R ~/.vim vim
+cp -Rf ~/.vim vim
 rm -rf vim/swp
 rm -rf vim/backup
 

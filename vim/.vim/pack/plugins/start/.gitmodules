@@ -1,0 +1,42 @@
+[submodule "vim-airline"]
+	path = vim-airline
+	url = git@github.com:vim-airline/vim-airline.git
+[submodule "vim-wordmotion"]
+	path = vim-wordmotion
+	url = git@github.com:chaoren/vim-wordmotion.git
+[submodule "nerdcommenter"]
+	path = nerdcommenter
+	url = git@github.com:preservim/nerdcommenter.git
+[submodule "goyo.vim"]
+	path = goyo.vim
+	url = git@github.com:junegunn/goyo.vim.git
+[submodule "vim-fugitive"]
+	path = vim-fugitive
+	url = git@github.com:tpope/vim-fugitive.git
+[submodule "vim-doge"]
+	path = vim-doge
+	url = git@github.com:kkoomen/vim-doge.git
+[submodule "vim-smoothie"]
+	path = vim-smoothie
+	url = git@github.com:psliwka/vim-smoothie.git
+[submodule "vim-surround"]
+	path = vim-surround
+	url = git@github.com:tpope/vim-surround.git
+[submodule "emmet-vim"]
+	path = emmet-vim
+	url = git@github.com:mattn/emmet-vim.git
+[submodule "tabular"]
+	path = tabular
+	url = git@github.com:godlygeek/tabular.git
+[submodule "ctrlp.vim"]
+	path = ctrlp.vim
+	url = git@github.com:kien/ctrlp.vim.git
+[submodule "async.vim"]
+	path = async.vim
+	url = git@github.com:prabirshrestha/async.vim.git
+[submodule "vim-lsp"]
+	path = vim-lsp
+	url = git@github.com:prabirshrestha/vim-lsp.git
+[submodule "vim-lsp-settings"]
+	path = vim-lsp-settings
+	url = git@github.com:mattn/vim-lsp-settings.git
