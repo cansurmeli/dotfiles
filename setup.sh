@@ -9,6 +9,7 @@ echo "3 - rPi"
 # Retrieve the user input
 read userPlatform
 
+# GENERAL OPERATIONS
 # Contain the dotfiles in their own environment for easy-management
 mkdir ~/.dotfiles
 
@@ -26,6 +27,7 @@ cp -R vim ~/.vim/
 mkdir ~/.vim/backup
 mkdir ~/.vim/swp
 
+# PLATFORM SPECIFIC OPERATIONS
 # Linux
 if [ "$userPlatform" -eq 1 ]
 then
