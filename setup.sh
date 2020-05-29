@@ -9,10 +9,6 @@ echo "3 - rPi"
 # Retrieve the user input
 read userPlatform
 
-# Install VimPlug
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
 # Contain the dotfiles in their own environment for easy-management
 mkdir ~/.dotfiles
 
