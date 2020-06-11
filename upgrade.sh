@@ -14,8 +14,8 @@ cp ~/.zshrc .
 cp -R ~/.bin .
 
 # Copy my `~/.vim` directory
-# but delete sensitive stuff
 cp -Rf ~/.vim vim
+# but delete sensitive stuff
 rm -rf vim/swp
 rm -rf vim/backup
 

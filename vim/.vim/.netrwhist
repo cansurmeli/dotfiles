@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =6
-let g:netrw_dirhist_6='/Users/can/Documents/Family/Can/Master/University Passau/Semesters/SS 20/Text Mining Project/TMP | Project [Kaggle]/tmp/.git'
-let g:netrw_dirhist_5='/Users/can/Documents/Family/Can/Master/University Passau/Semesters/SS 20/Text Mining Project/TMP | Project [Kaggle]/tmp/intermediate-reports'
-let g:netrw_dirhist_4='/Users/can/Documents/Development/Web/mertsurmeli.net/content/about-me'
-let g:netrw_dirhist_3='/Users/can/.vim/plugin'
-let g:netrw_dirhist_2='/Users/can/.vim/pack/plugins/start'
-let g:netrw_dirhist_1='/Users/can/Downloads/tejr-from-vimrc-to-vim'

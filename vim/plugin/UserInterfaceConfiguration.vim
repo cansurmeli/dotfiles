@@ -1,4 +1,5 @@
 set relativenumber " show relative line numbers
+set number				 " also show the static line number for the current line while there
 set wildmenu       " visual autocomplete for the command menu
 set showmatch      " highlight matching [{()}]
 set noshowmode     " do not display the current mode as there is vim-airline
