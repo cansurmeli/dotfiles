@@ -82,3 +82,8 @@ alias du='du -ch'
 
 # Make pip3 the default pip
 alias pip=/usr/local/bin/pip3
+
+# Clear the terminal window but also make the text above totally disappear
+# '\e[3J' is a terminal escape command
+# Based on https://askubuntu.com/questions/25077/how-to-really-clear-the-terminal
+alias cls="clear && printf '\e[3J'"

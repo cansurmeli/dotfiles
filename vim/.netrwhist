@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =6
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/Users/can/.vim/plugin'
+let g:netrw_dirhist_7='/Users/can/Documents/Development/Docker/Docker Containers/RStudio/instance1-data'
 let g:netrw_dirhist_6='/Users/can/Documents/Family/Can/Master/University Passau/Semesters/SS 20/Text Mining Project/TMP | Project [Kaggle]/tmp/.git'
 let g:netrw_dirhist_5='/Users/can/Documents/Family/Can/Master/University Passau/Semesters/SS 20/Text Mining Project/TMP | Project [Kaggle]/tmp/intermediate-reports'
 let g:netrw_dirhist_4='/Users/can/Documents/Development/Web/mertsurmeli.net/content/about-me'
