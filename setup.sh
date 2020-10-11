@@ -19,6 +19,10 @@ cp .functions ~/.dotfiles/
 cp .vimrc ~/.dotfiles/
 cp .functions_web_dev ~/.dotfiles/
 
+#.bin directory
+mkdir .bin
+cp .bin/getGitIgnore.sh ~/.bin/
+
 # Transfer the Vim snippets
 mkdir ~/.vim
 cp -R vim ~/.vim/
@@ -44,6 +48,7 @@ then
 	cp .aliases_mac ~/.dotfiles/
 	cp .functions_apple_dev ~/.dotfiles/
 	cp .functions_mac ~/.dotfiles/
+	cp .bin/createSketchPlugin.sh ~/.bin/
 
 	# Remove the sourcing of unnecessary files
 	sed -i '' -e '/.dotfiles/aliases_rpi/d' .zshrc
