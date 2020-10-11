@@ -21,3 +21,7 @@ resetTouchBar() {
 launchNetworkUtility() {
 	open /System/Library/CoreServices/Applications/Network\ Utility.app
 }
+
+flushDNS() {
+	sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
+}
