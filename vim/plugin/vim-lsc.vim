@@ -1,21 +1,21 @@
 let g:lsc_server_commands = {
- \  'ruby': {
- \    'command': 'solargraph stdio',
- \    'log_level': -1,
- \    'suppress_stderr': v:true,
- \  },
- \  'javascript': {
- \    'command': 'typescript-language-server --stdio',
- \    'log_level': -1,
- \    'suppress_stderr': v:true,
- \  },
  \  'swift': {
+ \    'command': '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp',
+ \    'log_level': -1,
+ \    'suppress_stderr': v:true,
+ \  },
+ \  'c': {
  \    'command': '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp',
  \    'log_level': -1,
  \    'suppress_stderr': v:true,
  \  },
  \  'python': {
  \    'command': 'pyls',
+ \    'log_level': -1,
+ \    'suppress_stderr': v:true,
+ \  },
+ \  'tex': {
+ \    'command': 'texlab',
  \    'log_level': -1,
  \    'suppress_stderr': v:true,
  \  }
