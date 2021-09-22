@@ -16,20 +16,11 @@ mkdir ~/.dotfiles
 # Common files every platform makes use of
 cp .aliases ~/.dotfiles/
 cp .functions ~/.dotfiles/
-cp .vimrc ~/.dotfiles/
 cp .functions_web_dev ~/.dotfiles/
 
 #.bin directory
 mkdir .bin
 cp .bin/getGitIgnore.sh ~/.bin/
-
-# Transfer the Vim snippets
-mkdir ~/.vim
-cp -R vim ~/.vim/
-
-# Other Vim operations
-mkdir ~/.vim/backup
-mkdir ~/.vim/swp
 
 # PLATFORM SPECIFIC OPERATIONS
 # Linux

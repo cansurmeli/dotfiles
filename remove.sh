@@ -13,9 +13,6 @@ if [ "$answer" -eq 1 ]
 then
 	# Remove the dotfiles
 	rm -rf ~/.dotfiles
-
-	# Remove the vim folder
-	rm -rf ~/.vim
 # No
 elif [ "$userPlatform" -eq 3 ]
 then

@@ -20,7 +20,6 @@ source ~/.dotfiles/.functions
 source ~/.dotfiles/.functions_apple_dev
 source ~/.dotfiles/.functions_mac
 source ~/.dotfiles/.functions_web_dev
-#source ~/.dotfiles/.sensible_bash_defaults
 
 # PERSONAL
 
@@ -42,3 +41,7 @@ bindkey -e
 
 # DOCKER
 export DOCKER_HIDE_LEGACY_COMMANDS=true
+# The completion engine for Docker https://docs.docker.com/compose/completion/has to be included in $fpath
+fpath=(~/.zsh/completion $fpath)
+# Docker completion engine also requires `compinit` is loaded
+autoload -Uz compinit && compinit -i
