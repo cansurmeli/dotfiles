@@ -12,7 +12,3 @@ cp ~/.dotfiles/.functions_web_dev .
 cp ~/.zpreztorc .
 cp ~/.zshrc .
 cp -R ~/.bin .
-
-# Remove the sensitive files being sourced
-sed -i '' -e '/directories/d' .zshrc
-sed -i '' -e '/confidential/d' .zshrc
